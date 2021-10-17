@@ -21,7 +21,7 @@ public class FoodTruckApp {
 					+ "If you do not wish to enter a truck, please type \"quit\": ");
 			String truckName = scanner.nextLine();
 			System.out.println();
-			if (truckName.equals("quit")) {
+			if (truckName.equalsIgnoreCase("quit")) {
 				break;
 			}
 
