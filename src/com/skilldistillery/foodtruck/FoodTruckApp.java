@@ -3,11 +3,6 @@ package com.skilldistillery.foodtruck;
 import java.util.Scanner;
 
 public class FoodTruckApp {
-	// list only the food trucks that have been inputted. dont show null
-	// average rating done with .length
-
-	// create 5 methods which get called in the loop each being created if the user
-	// does not hit quit
 	FoodTruck[] foodTrucks = new FoodTruck[5];
 	StringBuilder sBuilder = new StringBuilder();
 
@@ -18,11 +13,10 @@ public class FoodTruckApp {
 		foodTruckApp.addFoodTruck(scanner);
 		foodTruckApp.userMenu(scanner);
 	}
-
-	// this needs to loop through 5 times, if user types quit, loop ends, next menu
-	// loops
+	//takes food truck name, food type, rating and instantiates truck object
 	public void addFoodTruck(Scanner scanner) {
-		for (int i = 0; i < 5; i++) {
+		final int numFoodTrucksToAdd = 5;
+		for (int i = 0; i < numFoodTrucksToAdd; i++) {
 			System.out.print("Please enter the name of the food truck. \n"
 					+ "If you do not wish to enter a truck, please type \"quit\": ");
 			String truckName = scanner.nextLine();
@@ -34,12 +28,21 @@ public class FoodTruckApp {
 			System.out.print("Please enter the type of food this truck serves: ");
 			String foodType = scanner.nextLine();
 			System.out.println();
+			
+			int rating = 0;
+			boolean isOutOfRange = true;
+			while (isOutOfRange) {
+				System.out.print("How would you rate this truck from 1-5? ");
+				rating = scanner.nextInt();
+				scanner.nextLine();
+				System.out.println();
+				if (rating <= 1 || rating <= 5) {
+					break;
+				}
+			}
 
-			System.out.print("How would you rate this truck from 1-5? ");
-			int rating = scanner.nextInt();
-			scanner.nextLine();
-			System.out.println();
-
+			//iterates through and checks if food truck array space is open
+			//each time numTrucks is changed it will know to create next truck object.
 			int numTrucks = 0;
 			for (int j = 0; j < foodTrucks.length; j++) {
 				if (foodTrucks[j] == null) {
@@ -62,7 +65,7 @@ public class FoodTruckApp {
 			}
 		}
 	}
-
+	//instantiates new truck objects from 1-5
 	public FoodTruck truckOne(String truckName, String foodType, int rating) {
 		FoodTruck truckOne = new FoodTruck(truckName, foodType, rating);
 		return truckOne;
@@ -88,12 +91,13 @@ public class FoodTruckApp {
 		return truckFive;
 	}
 
+	//displays user menu to view other truck information
 	public void userMenu(Scanner scanner) {
 		boolean userWantsInfo = true;
 		while (userWantsInfo) {
 			System.out.println("Would you like to: " + "\n 1) Display other food trucks in the area? "
-					+ "\n 2) Display the average rating of the food trucks?"
-					+ "\n 3) Display the highest-rated food truck?" + "\n 4) Quit? ");
+								+ "\n 2) Display the average rating of the food trucks?"
+								+ "\n 3) Display the highest-rated food truck?" + "\n 4) Quit? ");
 			int menu = scanner.nextInt();
 			scanner.nextLine();
 
@@ -114,6 +118,7 @@ public class FoodTruckApp {
 
 			case 4:
 				userWantsInfo = false;
+				System.out.println("Thank you for using our app!");
 				break;
 			}
 		}
@@ -134,6 +139,7 @@ public class FoodTruckApp {
 		return sbuilder;
 	}
 
+	//average for how many trucks were added
 	public double averageFoodTruckRating() {
 		double sum = 0;
 		double average = 0;
@@ -150,6 +156,7 @@ public class FoodTruckApp {
 		return average;
 	}
 
+	//shows highest rated food truck, if tie, shows last one added
 	public StringBuilder bestFoodTruck(StringBuilder sbuilder) {
 		sbuilder.setLength(0);
 		int highestRating = 0;
