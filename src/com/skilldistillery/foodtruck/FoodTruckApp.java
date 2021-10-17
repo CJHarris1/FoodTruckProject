@@ -9,15 +9,15 @@ public class FoodTruckApp {
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
 		FoodTruckApp foodTruckApp = new FoodTruckApp();
+		System.out.println("Welcome to Hot Mealz, the food truck rating app! \n");
 
 		foodTruckApp.addFoodTruck(scanner);
 		foodTruckApp.userMenu(scanner);
 	}
 	//takes food truck name, food type, rating and instantiates truck object
 	public void addFoodTruck(Scanner scanner) {
-		final int numFoodTrucksToAdd = 5;
-		for (int i = 0; i < numFoodTrucksToAdd; i++) {
-			System.out.print("Please enter the name of the food truck. \n"
+		for (int i = 0; i < foodTrucks.length; i++) {
+			System.out.print("Please enter the name of the food truck you are reviewing. \n"
 					+ "If you do not wish to enter a truck, please type \"quit\": ");
 			String truckName = scanner.nextLine();
 			System.out.println();
@@ -118,7 +118,7 @@ public class FoodTruckApp {
 
 			case 4:
 				userWantsInfo = false;
-				System.out.println("Thank you for using our app!");
+				System.out.println("Thank you for using Hot Mealz!");
 				break;
 			}
 		}
@@ -162,6 +162,7 @@ public class FoodTruckApp {
 		int highestRating = 0;
 		String bestTruck = "";
 		String foodType = "";
+		int truckId = 0;
 
 		for (int i = 0; i < foodTrucks.length; i++) {
 			if (foodTrucks[i] == null) {
@@ -170,9 +171,10 @@ public class FoodTruckApp {
 				highestRating = foodTrucks[i].getRating();
 				bestTruck = foodTrucks[i].getTruckName();
 				foodType = foodTrucks[i].getFoodType();
+				truckId = foodTrucks[i].getTruckId();
 			}
 		}
-		sbuilder.append("The best food truck is ").append(bestTruck).append(" which serves ").append(foodType)
+		sbuilder.append("The best food truck is ").append(bestTruck).append(" , id: ").append(truckId).append(", which serves ").append(foodType)
 				.append(" and has a rating of ").append(highestRating).append(" out of 5.");
 
 		return sbuilder;
