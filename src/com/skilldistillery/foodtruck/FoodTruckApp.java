@@ -36,7 +36,7 @@ public class FoodTruckApp {
 				rating = scanner.nextInt();
 				scanner.nextLine();
 				System.out.println();
-				if (rating <= 1 || rating <= 5) {
+				if (rating >= 1 && rating <= 5) {
 					break;
 				}
 			}
